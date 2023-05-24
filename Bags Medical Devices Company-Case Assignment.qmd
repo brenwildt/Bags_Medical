@@ -1,0 +1,250 @@
+---
+title:    "Bags Medical Devices Company"
+subtitle: |
+          | Sponsored by Deloitte FAS LLP and the Deloitte Foundation 
+          | Case No. 2-1
+          | With assignement modifications by Dr. Larry Tentor 
+author:   "Deloitte"
+format:
+  html:
+    code-fold: true
+    embed-resources: true
+    title-block-banner: true
+    toc: true
+    toc-location: left
+    number-sections: true
+    tbl-cap-location: top
+    fig-cap-location: top
+#    code-block-border-left: true
+#    df_print: kable
+#    urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(RSQLite)
+library(dbplyr)
+```
+
+:::{.callout-note}
+## Primary Source
+| Forensic Accounting Case Study Series \ 
+| Sponsored by Deloitte FAS LLP and the Deloitte Foundation
+| Sales Commission Fraud - Bags Medical Device Company
+| Case No. 2-1
+
+This material has been modified from Deloitte's original assignment, to fit within our learning objectives.
+:::
+
+## Overview
+
+Given that DAPT associates are required to exhibit a certain level of analytical skills, the case has been selected to test the students’ ability to use tools to analyze patterns and draw relationships.
+
+The notes from the informational interview with the CEO, Steve Flanders and the other company employees have been designed to get students thinking of how information gathered during interviews help in solving the puzzle!!
+
+### Collaboration
+
+While collaborating with classmates is very much encouraged, the final deliverable should reflect the teams work product.
+
+### Deliverable
+
+Report: Each team is expected to submit the following documents;
+
+
+  * A `Summary of Findings Memo` that provides a response to the fraud allegations raised.
+    * This report should be written from the perspective of Rango Fraud Specialists, LLP.
+    * This report should take the form of a memo from Rango Fraud Specialists, LLP to Bags Medical Device Company, written to CEO Steve Flanders. 
+    * This report should cross reference any figure, table or diagram, the text must explain the desired interpretation of any figure, table or diagram. 
+    * The memo shall be **two-pages or less**.
+  * An appendix with any desired supporting or ancillary materials may be included.  
+    * This could contain technical details since the memo should simply present any necessary analysis to support or deny the allegations of fraud.
+  * Your submitted memo should NOT contain any of your teams names.
+    * In a follow up review, teams will review each other team's submission.
+  * Any member of the team may be called upon for case questions, and are expected to be able to repond to analysis details.
+  * While I will distribute this .qmd (Quarto Markdown Document, next generation of .Rmd) I do not find most students wish to take the effort to learn markdown for reporting and I recommend most students will be more successful just writing memo in MS Word.  While it is possible to write memo in .qmd, code should be hidden and the memo should not be workpapers.  Any workpaper materials may be in an appendix.
+    * You are fully expected to use import code within qmd to load data into R, this should be copied for your analysis.  You may select to perform this analysis with any tool, some may include Excel, R, Python, Julia.  An Excel starting file is also provided.
+
+#### Submission Checklist
+
+- [ ] Memo format used.
+- [ ] Written from perspective of Rango Fraud Specialists, LLP.
+- [ ] Analysis and logic to support conclusion
+    - [ ] Did sales provided in dataset and calculated commissions cross foot with Income Statement? (Income Statement in Excel)
+    - [ ] If fraud was probable, how was it committed? If fraud is not detected were any anomalies detected?
+    - [ ] If any, how much money was lost to fraud?
+    - [ ] if any, recommendations to improve company?
+    - [ ] 2-4 supporting artifacts (figures, tables or diagrams) directly applicable to analysis.
+- [ ] All figures, tables or diagrams cross referenced and explained in text.
+- [ ] Pyramid Principal: Did you start with the most important idea and then share its derivation
+afterward?
+- [ ] No team name or individual names in document
+- [ ] No more than two-pages
+
+## Bags Medical Device Company Overview
+
+Bags Medical Device Company (“BMDC” or “the Company”), based in Arlington, Virginia, sells medical devices to hospitals and doctors in private practices across the United States. BMDC was founded in 1998 by Steve Flanders who began selling the devices from his garage.
+
+## Rango Fraud Specialists
+
+Your consulting firm, Rango Fraud Specialists, LLP has interviewed various BMDC employees including the five (5) individuals identified by the whistleblower to gather information. Some of the information is purely speculative. Bear in mind that some of it came from the interview with Susie Sanders, who is known to be the office gossip queen. 
+
+## Informational Interviews
+
+### Steve Flanders, CEO
+
+:::{.callout-note  collapse="true"}
+## How was the issue identified by the client? 
+The issue was identified from an anonymous call into the whistleblower hotline on 1/12/12.
+:::
+
+:::{.callout-note  collapse="true"}
+## Are there any further details regarding the allegation to BMDC?
+Based on the call from the whistleblower hotline there is an alleged collusion amongst sales, legal and accounting to list additional sales members as secondary sales representatives on contract sales to allow for unmerited commission payments.  
+:::
+
+:::{.callout-note  collapse="true"}
+## What are the sales commissions related to? 
+The sales commissions are related to a BMDC proprietary product.
+:::
+
+:::{.callout-note  collapse="true"}
+## Can you explain the sales commission process?  
+The sales commissions process is:
+
+  1. Sales represenatives are responsible for meeting with the customers and collecting sales orders after an initial contract is established
+  2. For a contract to be established, a manager from the contracting department must approve the terms and conditions of the contract (price, discounts, rebates, etc.)  Each contract lists the sales rep that is the primary company representative (receives 10% of the contract price). The contract also allows for a secondary sales rep (receives 5% of the contract price); this is someone who would have assisted in the sales process.
+  3. Once it’s been approved, each contract is entered into the accounting system where the commissions are automatically calculated. This process is overseen by the accounting department. The accounting clerk is responsible for reconciling commissions paid to contract price. Once the information is reconciled and entered into the system, the contracting manager then reviews the contract entry and confirms that information was entered properly. It is not the responsibility of the accounting clerk to confirm that the salesmen are appropriately listed on the contract.
+:::
+
+:::{.callout-note  collapse="true"}
+## How has the recession affected sales? 
+The company was hit hard by the recession and sales have been down the past couple of years but analysts have high hopes and have projected an 8% earnings growth this fiscal year.
+:::
+
+:::{.callout-note  collapse="true"}
+## Are there any suspicions as to who may be involved?
+The Whistleblower identified 5 individuals who he believes is involved:
+  1. Mitchel Bogart – Sales Rep
+  2. Carly McFinnigan – Accounting Clerk
+  3. Amanda Smith – Sales Rep
+  4. Willie Johnson – Sales Rep
+  5. Barry McMillan – Contracting Manager
+:::
+
+:::{.callout-note  collapse="true"}
+## Other Information
+  1. Our group of 15 salesmen works really well together and they are all very friendly with one another. The exception is one individual who the CEO has told us is his star salesman. This person consistently is in the top 3 every year for commissions. While the individual occasionally collaborates as a secondary to other salesman’s efforts, he refuses to use secondary salesman on his primary sales.
+  2. Mr. Flanders admitted that he puts a considerable amount of pressure on the sales force to meet and exceed established quotas.
+:::
+
+
+### Mitchel Bogart 
+
+#### Background
+
+Mitchel has been with BMDC for the last 7 years. He came on-board based on a recommendation from one of his former colleagues at another medical device company. He was known to have a lot of connections within some of distributors that handle BMDC’ products. He started off slowly in his first two years at BMDC due to a non-compete agreement with his former employer. In the beginning of his third year (2007) his sales started to climb and by the second half of the year he was beating out other sales reps.
+
+#### Personal History
+
+Mitchel grew up in an area that connected him with high level executives at medical device distributors. Most of his customers are old friends of his. There is a rumor going around the office that Mitchel likes to live above his
+means since he just bought a brand new Porsche. 
+
+#### Relationships
+
+Willie – Mitchel’s wife and Willie’s soon to be ex-wife belong to the same knitting club. 
+
+### Carly McFinnagan
+
+#### Background
+Carly has been an accounting clerk at BMDC for almost 7 years. She is currently in the same position that she was hired into. Her main responsibility is to calculate the commission payments to each of the sales reps. In addition, she is responsible for confirming that the classification of the sales reps as primary or secondary is appropriate based on the contract information filled out by the contract department. Carly has been up for promotion to accounting manager for the last 3 years and has been passed over each time. Based on her understanding, the company informed her that they have not been able to identify anyone who can fill her current position. Her belief is that the company can’t find someone else to take this low paying job.
+
+#### Personal History
+
+Carly has been married for the last 15 years and lives in an affluent area near her job with her 3 boys. Her husband is a big time investment banker.
+
+#### Relationships
+
+Barry – Carly has been Barry’s neighbor for the last five years. Barry and her husband have become good friends over the years. 
+
+### Amanda Smith
+
+#### Background 
+
+Amanda has been with BMDC for the last 6 years. She started as a sales rep  and has held the same position since then. Amanda was a top 5 salesperson in her first four years, but during the last two years, she has been in the bottom in sales. Because she set the bar so high initially, management increased her sales quota. But during the last two years she has missed her sales quota and fears that if things don’t change soon she could be out of a job.
+
+#### Personal History
+
+Amanda is divorced and supports her two children along with her niece who has just moved in with her.
+
+#### Relationships
+
+Barry McMillian – Longtime friend of Amanda’s since they attended the same
+college together.
+There is an office rumor that Willie and Amanda have been secretly dating
+since Willie and his wife separated last year. The company does not allow
+inter-office dating. 
+
+### Willie Johnson
+
+#### Background
+
+Willie has been with BMDC for 4 years. Previously, Willie worked for one of the leading pharmaceutical firms and worked in their sales department for 10 years. Because of his experience in sales, Willie has had an easy time meeting his quotas since he joined BMDC.
+
+#### Personal History
+
+Willie’s personal life is in disarray as he is going through his second divorce and it is rumored that he has a severe gambling problem.
+
+#### Relationships
+
+Mitchel – Mitchel’s wife and Willie’s soon to be ex-wife belong to the same knitting club. There is an office rumor that Willie and Amanda have been secretly dating since Willie and his wife separated last year. The company does not allow inter-office dating. 
+
+### Barry McMillian
+
+#### Background
+
+Barry has been with BMDC for about 8 years now. He started off in sales and has since moved into the contracting department. His role is to make sure the terms of the contract are within the company’s pre-established limits and that all of the relevant information (client name, price, discounts, rebates) are properly listed. In addition, he inputs the sales representative names on each contract and classifies each representative accordingly as the primary or secondary.
+
+#### Personal History
+
+Barry is happily married to his college sweetheart of 10 years and has 3 loving kids. He lives in a very affluent area near the office.
+
+#### Relationships
+
+Amanda Smith – Long time friend of Barry’s since they attended the same college together.
+Bradley McFinnagan – Barry’s next door neighbor for the last 5 years and they have since become very good friends. Bradley is married to Carly McFinnagan. 
+
+## Load Commission Data
+
+### Connect to CSV Text file
+
+This section loads the commission data as originally presented in the pdf supplied from Deliotte.
+
+```{r}
+BagsCommissionDetail <- read_csv( "Bags Medical Devices Company- Commision Detail.csv"
+                               , col_types = cols( ContractId          = col_integer()
+                                                 , ContractYear        = col_integer()
+                                                 , ContractDate        = col_date(format = "%m/%d/%Y")
+                                                 , PrimaryCommission   = col_double()
+                                                 , SecondaryCommission = col_double()
+                                                 , TotalCommission     = col_double()
+                                                 )
+                               )
+```
+
+Next we show a summary of the tibble to confirm load.  The student is responsible to confirm that the data has successfully been transferred from the original pdf and that correct values are used for analysis.
+
+
+```{r}
+summary(BagsCommissionDetail)
+```
+
+## Analysis
+
+Now that the data is loaded and confirmed, particpants may proceed with the analysis.
+
+
+```{r}
+
+```
+
